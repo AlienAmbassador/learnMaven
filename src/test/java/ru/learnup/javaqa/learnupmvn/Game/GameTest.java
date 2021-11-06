@@ -45,7 +45,20 @@ public class GameTest {
         } else {
             expected = new int[]{1, 0};
         }
-
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldTellWinnersNames(){
+        String[] names = {"Kolya", "10", "Petya", "2", "Natasha", "15"};
+        String[] actual = Game.winnersNames(names);
+
+        String[] expected;
+        if (Game.isGreenLight){
+            expected = new String[]{"Kolya", "Natasha"};
+        } else {
+            expected = new String[]{"Petya"};
+        }
+        Assertions.assertArrayEquals(actual, expected);
     }
 }
