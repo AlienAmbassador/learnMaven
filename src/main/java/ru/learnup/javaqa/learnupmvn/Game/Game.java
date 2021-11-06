@@ -4,10 +4,15 @@ import java.util.Arrays;
 
 public class Game {
 
-    public static boolean isGreenLight = false;
-    public static int MAX_SPEED = 3;
+    public boolean isGreenLight;
+    public int MAX_SPEED;
 
-    public static int amountOfLosers(int[] speed) {
+    public Game(boolean isGreenLight, int MAX_SPEED) {
+        this.isGreenLight = isGreenLight;
+        this.MAX_SPEED = MAX_SPEED;
+    }
+
+    public int amountOfLosers(int[] speed) {
         int cnt = 0;
         for (int j : speed) {
             if (isGreenLight) {
@@ -19,7 +24,7 @@ public class Game {
         return cnt;
     }
 
-    public static int[] speedsOfLosers(int[] speed) {
+    public int[] speedsOfLosers(int[] speed) {
         int[] losersSpeed = new int[amountOfLosers(speed)];
         int cnt = 0;
         for (int j : speed) {
@@ -39,7 +44,7 @@ public class Game {
         return losersSpeed;
     }
 
-    public static int[] speedsOfWinners(int[] speed) {
+    public int[] speedsOfWinners(int[] speed) {
         int[] winnersSpeed = new int[speed.length - amountOfLosers(speed)];
         int cnt = 0;
         for (int j : speed) {
@@ -59,10 +64,28 @@ public class Game {
         return winnersSpeed;
     }
 
-    public static void main(String[] args) {
-        int[] speedOfPlayers = {3, 4, 0, 6};
-        System.out.println(amountOfLosers(speedOfPlayers));
-        System.out.println(Arrays.toString(speedsOfLosers(speedOfPlayers)));
-        System.out.println(Arrays.toString(speedsOfWinners(speedOfPlayers)));
+
+    public String[] winnersNames(String[] names) {
+        int cnt = 0;
+        String[] winners = new String[0];
+        for (int i = 0; i < names.length; i++) {
+            if (i % 2 != 0) {
+                if (isGreenLight) {
+                    if (Integer.parseInt(names[i]) > MAX_SPEED) {
+                        winners = Arrays.copyOf(winners, (winners.length + 1));
+                        winners[cnt] = names[i - 1];
+                        cnt++;
+                    }
+                } else {
+                    if (Integer.parseInt(names[i]) <= MAX_SPEED) {
+                        winners = Arrays.copyOf(winners, (winners.length + 1));
+                        winners[cnt] = names[i - 1];
+                        cnt++;
+
+                    }
+                }
+            }
+        }
+        return winners;
     }
 }

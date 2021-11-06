@@ -9,10 +9,11 @@ public class GameTest {
 
     @Test
     public void shouldTellAmountOfLosers() {
+        Game game = new Game(true, 3);
         int[] speed = new int[]{1, 4, 0};
-        int actual = Game.amountOfLosers(speed);
+        int actual = game.amountOfLosers(speed);
         byte expected;
-        if (Game.isGreenLight) {
+        if (game.isGreenLight) {
             expected = 2;
         } else {
             expected = 1;
@@ -23,10 +24,11 @@ public class GameTest {
 
     @Test
     public void shouldTellSpeedsOfLosers() {
+        Game game = new Game(true, 3);
         int[] speed = new int[]{1, 4, 0};
-        int[] actual = Game.speedsOfLosers(speed);
+        int[] actual = game.speedsOfLosers(speed);
         int[] expected;
-        if (Game.isGreenLight) {
+        if (game.isGreenLight) {
             expected = new int[]{1, 0};
         } else {
             expected = new int[]{4};
@@ -37,15 +39,32 @@ public class GameTest {
 
     @Test
     public void shouldTellSpeedsOfWinners() {
+        Game game = new Game(true, 3);
         int[] speed = new int[]{1, 4, 0};
-        int[] actual = Game.speedsOfWinners(speed);
+        int[] actual = game.speedsOfWinners(speed);
         int[] expected;
-        if (Game.isGreenLight) {
+        if (game.isGreenLight) {
             expected = new int[]{4};
         } else {
             expected = new int[]{1, 0};
         }
-
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldTellWinnersNames() {
+        Game game = new Game(true, 3);
+        String[] names = {"Kolya", "10", "Petya", "2", "Natasha", "15"};
+        String[] actual = game.winnersNames(names);
+
+        String[] expected;
+        if (game.isGreenLight) {
+            expected = new String[]{"Kolya", "Natasha"};
+        } else {
+            expected = new String[]{"Petya"};
+        }
+        Assertions.assertArrayEquals(actual, expected);
+    }
+
 }
+
